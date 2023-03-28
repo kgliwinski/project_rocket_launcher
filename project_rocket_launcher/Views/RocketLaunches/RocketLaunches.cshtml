@@ -1,14 +1,23 @@
 ﻿@{
     ViewData["Title"] = "Hello world";
+    ViewBag.Title = "Test";
 }
 
+@model IList<Launch>
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Hello world test 1234</p>
-    @*<button type="button" onclick="location.href='@Url.Action("Privacy", "Home")'">Test</button>*@
-    <button><a class="button" value="test" href="@Url.Action("onButton", "RocketLaunches")">Test</a></button>
-    <div>
-        @TempData["Button_rocket_launches"]
-    </div>
+    @*<button><a class="button" value="test" href="@Url.Action("onButton", "RocketLaunches")">Test</a></button>*@
+
+    @Model.
+    @foreach(var test in ViewBag.Launches)
+    {
+        <div class="myDiv">
+            <h4>@test.name</h4>
+            <h8>@test.window_start</h8>
+            <br>
+            <h8>@test.status.description</h8>
+            @*<img src = "@test.image" width="300" height="300">*@
+        </div>
+    }
 </div>
 
