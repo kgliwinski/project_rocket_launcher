@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Hello world";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Hello world test 1234</p>
+    @*<button type="button" onclick="location.href='@Url.Action("Privacy", "Home")'">Test</button>*@
+    <button><a class="button" value="test" href="@Url.Action("onButton", "RocketLaunches")">Test</a></button>
+    <div>
+        @TempData["Button_rocket_launches"]
+    </div>
+</div>
+
