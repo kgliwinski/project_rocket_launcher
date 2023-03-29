@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "View";
+    ViewBag.Title = "LaunchDetail";
+}
+
+@{
+    <div class="myDiv">
+        <form method="post">
+        <button asp-area="" asp-controller="RocketLaunches" asp-action="RocketLaunches">
+            Go back to launches
+        </button>
+        </form>
+    </div>
+    
+    if (ViewBag.LaunchDetails == null)
+    {
+        <h2 color="red">ERROR</h2>
+    } else
+    {
+        <div class="myDiv">
+            <h4>@ViewBag.LaunchDetails.name</h4>
+            <h8>@ViewBag.LaunchDetails.window_start</h8>
+            <br>
+            <h8>@ViewBag.LaunchDetails.status.description</h8>
+            <br>
+            <img src="@ViewBag.LaunchDetails.image" width="500" height="500">
+        </div>
+    }
+}

@@ -12,7 +12,9 @@
     @foreach(var test in ViewBag.Launches)
     {
         <div class="myDiv">
-            <h4>@test.name</h4>
+            <h4>
+            <a asp-controller="RocketLaunches" asp-action="LaunchDetails" asp-route-launchID="@test.id">@test.name</a>
+            </h4>
             <h8>@test.window_start</h8>
             <br>
             <h8>@test.status.description</h8>

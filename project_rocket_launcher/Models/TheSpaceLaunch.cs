@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace project_rocket_launcher.Models
@@ -13,19 +14,19 @@ namespace project_rocket_launcher.Models
             }
         }
 
-        static public IList<Launch> getUpcomingLaunches() 
+        static public IList<Launch> getUpcomingLaunches(uint number_of_launches = 10) 
         {
-            string response = getFromAPI("https://lldev.thespacedevs.com/2.2.0/launch/upcoming");
-            Console.WriteLine(response);
-            JObject parsed_launches = JObject.Parse(response);
-            IList<JToken> launches_token = parsed_launches["results"].Children().ToList();
-            IList<Launch> result_launches = new List<Launch>();
-            foreach (JToken launches in launches_token)
-            {
-                result_launches.Add(launches.ToObject<Launch>());
-            }
+            string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?limit={number_of_launches}");
+            LaunchList launchList = JsonConvert.DeserializeObject<LaunchList>(response);
 
-            return result_launches;
+            return launchList.results;
+        }
+
+        static public Launch getUpcomingLaunchById(string id)
+        {
+            string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?id={id}");
+            //Console.WriteLine(response);
+            return JsonConvert.DeserializeObject<LaunchList>(response).results[0];    
         }
     }
 }
