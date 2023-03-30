@@ -36,6 +36,15 @@ namespace project_rocket_launcher.Controllers
             return View();
         }
 
+        public IActionResult FavouritesLaunches()
+        {
+            //IList<Launch> result = ;
+            //result.ForEach((item) =>  launches.Add(item.Clone()));
+
+            //Console.WriteLine(launches.Count);
+            return View();
+        }
+
 
 
     }
