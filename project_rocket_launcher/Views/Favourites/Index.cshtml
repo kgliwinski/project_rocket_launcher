@@ -1,35 +1,21 @@
-﻿@model IEnumerable<project_rocket_launcher.Models.FavouriteLaunch>
-
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewBag.Title = "Test";
 }
 
-<h1>Index</h1>
+@model IList<Launch>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LaunchId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LaunchId)
-            </td>
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="text-center">
+
+    @Model.
+    @foreach (var test in ViewBag.Launches)
+    {
+        <div class="myDiv">
+            <h4>
+                <a asp-controller="RocketLaunches" asp-action="LaunchDetails" asp-route-launchID="@test.id">@test.name</a>
+            </h4>
+            <h8>@test.window_start</h8>
+            <br>
+            <h8>@test.status.description</h8>
+        </div>
+    }
+</div>

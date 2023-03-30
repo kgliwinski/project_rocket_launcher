@@ -16,8 +16,8 @@ namespace project_rocket_launcher.Controllers
         // GET: FavouritesController
         public ActionResult Index()
         {
-           
-            return View(favouriteRepository.GetAllFavourites());
+            ViewBag.Launches = TheSpaceLaunch.getFavouriteLaunches(favouriteRepository.GetAllFavourites());
+            return View();
         }
 
         // GET: FavouritesController/Details/5

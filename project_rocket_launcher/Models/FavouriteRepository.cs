@@ -26,15 +26,16 @@
             return _context.FavouritesLaunches;
         }
 
-        //public void Update(int id, FavouriteLaunch launch) 
-        //{
-        //    //FavouriteLaunch favourite = _context.FavouritesLaunches.SingleOrDefault(x => x.Id == id);
+        public void Delete(string id)
+        {
+            var launch = _context.FavouritesLaunches.FirstOrDefault(x => x.LaunchId.Equals(id));
+            if (launch != null)
+            {
+                _context.Remove(launch);
+                _context.SaveChanges();
+            }
+        }
 
-        //    //if (favourite != null)
-        //    //{
-        //    //    favourite
-        //    //}
-        //}
 
     }
 }

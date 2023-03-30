@@ -5,6 +5,6 @@
         public int count { get; set; }
         public string? next { get; set; }
         public string? previous { get; set; }
-        public IList<Launch> results { get; set; } = new List<Launch>();
+        public IList<LaunchDetails> results { get; set; } = new List<LaunchDetails>();
     }
 }

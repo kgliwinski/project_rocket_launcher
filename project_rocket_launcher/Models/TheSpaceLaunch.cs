@@ -14,19 +14,48 @@ namespace project_rocket_launcher.Models
             }
         }
 
-        static public IList<Launch> getUpcomingLaunches(uint number_of_launches = 10) 
+
+        static public IList<LaunchDetails> getUpcomingLaunches(uint number_of_launches = 10) 
         {
+
             string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?limit={number_of_launches}");
             LaunchList launchList = JsonConvert.DeserializeObject<LaunchList>(response);
 
             return launchList.results;
         }
 
-        static public Launch getUpcomingLaunchById(string id)
+        static public LaunchDetails getUpcomingLaunchById(string id)
         {
             string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?id={id}");
-            //Console.WriteLine(response);
             return JsonConvert.DeserializeObject<LaunchList>(response).results[0];    
+        }
+
+        static public IList<Launch> convertToLaunch(IList<LaunchDetails> details, IQueryable<FavouriteLaunch> favourites) 
+        { 
+            IList<Launch> launches = new List<Launch>();
+            foreach(var launchDetail in details)
+            {
+                Launch launch = new Launch();
+                launch.details = launchDetail;
+                if (favourites.Any(x => x.LaunchId.Equals(launchDetail.id)) == true) {
+                    launch.isFavourite = true;
+                } else
+                {
+                    launch.isFavourite = false;
+                }
+                launches.Add(launch);    
+            }
+            return launches;
+        }
+
+        static public IList<LaunchDetails> getFavouriteLaunches(IQueryable<FavouriteLaunch> favourites)
+        {
+            IList<LaunchDetails> favLaunches = new List<LaunchDetails>();
+            foreach(var favInfo in favourites)
+            {
+                favLaunches.Add(getUpcomingLaunchById(favInfo.LaunchId));
+            }
+            return favLaunches;
         }
     }
 }

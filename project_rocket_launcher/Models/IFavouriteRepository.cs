@@ -7,5 +7,7 @@
         void Add(FavouriteLaunch favouriteLaunch);
 
         IQueryable<FavouriteLaunch> GetAllFavourites();
+
+        void Delete(string launch_id);
     }
 }

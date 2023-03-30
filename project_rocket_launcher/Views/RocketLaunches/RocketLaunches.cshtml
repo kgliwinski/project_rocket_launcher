@@ -9,16 +9,26 @@
     @*<button><a class="button" value="test" href="@Url.Action("onButton", "RocketLaunches")">Test</a></button>*@
 
     @Model.
-    @foreach(var test in ViewBag.Launches)
+    @foreach (var test in ViewBag.Launches)
     {
         <div class="myDiv">
             <h4>
-            <a asp-controller="RocketLaunches" asp-action="LaunchDetails" asp-route-launchID="@test.id">@test.name</a>
+            <a asp-controller="RocketLaunches" asp-action="LaunchDetails" asp-route-launchID="@test.details.id">@test.details.name</a>
             </h4>
-            <h8>@test.window_start</h8>
+            <h8>@test.details.window_start</h8>
             <br>
-            <h8>@test.status.description</h8>
+            <h8>@test.details.status.description</h8>
             @*<img src = "@test.image" width="300" height="300">*@
+            <br>
+            @{
+                if (test.isFavourite == true)
+                {
+                    <a asp-controller="RocketLaunches" asp-action="RemoveFromFavourite" asp-route-launchId="@test.details.id">Remove</a>
+                } else
+                {
+                    <a asp-controller="RocketLaunches" asp-action="AddToFavourite" asp-route-launchId="@test.details.id">Add to favourites</a>
+                }
+            }
         </div>
     }
 </div>
