@@ -6,7 +6,7 @@
 
 <script>
     window.addEventListener("load", () => {
-        startTimer(60, document.getElementById("test"));
+        countdown("@ViewBag.LaunchDetails.window_start", "cdwn_timer");
     });
 </script>
 
@@ -28,10 +28,9 @@
                 
                 <div class="launch_details_desc">
                     <span>Launch start</span>
-                    <div class="launch_start">
-                        @ViewBag.LaunchDetails.window_start
+                    <div class="launch_start" id="cdwn_timer">
+                        T- -:--:--:--
                     </div>
-                    <p id="test">test</p>
                 </div>
                 <div class="launch_details_desc">
                     <span>Launch status</span>
