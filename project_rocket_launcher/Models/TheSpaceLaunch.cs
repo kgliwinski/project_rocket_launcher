@@ -30,6 +30,12 @@ namespace project_rocket_launcher.Models
             return JsonConvert.DeserializeObject<LaunchList>(response).results[0];    
         }
 
+        static public LaunchDetails getLaunchById(string id)
+        {
+            string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/?id={id}");
+            return JsonConvert.DeserializeObject<LaunchList>(response).results[0];
+        }
+
         static public IList<Launch> convertToLaunch(IList<LaunchDetails> details, IQueryable<FavouriteLaunch> favourites) 
         { 
             IList<Launch> launches = new List<Launch>();
@@ -53,7 +59,7 @@ namespace project_rocket_launcher.Models
             IList<LaunchDetails> favLaunches = new List<LaunchDetails>();
             foreach(var favInfo in favourites)
             {
-                favLaunches.Add(getUpcomingLaunchById(favInfo.LaunchId));
+                favLaunches.Add(getLaunchById(favInfo.LaunchId));
             }
             return favLaunches;
         }
