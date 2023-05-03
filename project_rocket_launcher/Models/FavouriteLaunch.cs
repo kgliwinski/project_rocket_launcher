@@ -8,5 +8,6 @@ namespace project_rocket_launcher.Models
         public int Id { get; set; }
         public string LaunchId { get; set; } = string.Empty;
 
+        public LaunchDetails? LaunchDetails { get; set; }
     }
 }
