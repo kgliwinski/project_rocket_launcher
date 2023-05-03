@@ -2,12 +2,10 @@
 
 namespace project_rocket_launcher.Models
 {
-    public class FavouriteLaunch
+    public class FavouriteLaunch : Launch
     {
         [Key]
         public int Id { get; set; }
         public string LaunchId { get; set; } = string.Empty;
-
-        public LaunchDetails? FavouriteLaunchDetails { get; set; }
     }
 }

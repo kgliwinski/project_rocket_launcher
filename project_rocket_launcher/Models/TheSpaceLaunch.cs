@@ -37,15 +37,6 @@ namespace project_rocket_launcher.Models
             return JsonConvert.DeserializeObject<LaunchList>(response).results[0];
         }
 
-        static public LaunchDetails RetrieveFromDatabaseById(int id)
-        {
-            // return a LaunchDetails from database
-            using (var database = new DataContext())
-            {
-                return database.FavouritesLaunches.LaunchDetails;
-            }
-        }
-
         static public IList<Launch> convertToLaunch(IList<LaunchDetails> details, IQueryable<FavouriteLaunch> favourites) 
         { 
             IList<Launch> launches = new List<Launch>();
@@ -75,7 +66,7 @@ namespace project_rocket_launcher.Models
                 }
                 else
                 {
-                    favLaunches.Add(RetrieveFromDatabaseById(favInfo.Id));
+                    
                 }
             }
             return favLaunches;

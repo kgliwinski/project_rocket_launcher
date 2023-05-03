@@ -23,16 +23,19 @@ namespace project_rocket_launcher.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("LaunchDetailsid")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("LaunchId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("detailsid")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("isFavourite")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("LaunchDetailsid");
+                    b.HasIndex("detailsid");
 
                     b.ToTable("FavouritesLaunches");
                 });
@@ -118,11 +121,11 @@ namespace project_rocket_launcher.Migrations
 
             modelBuilder.Entity("project_rocket_launcher.Models.FavouriteLaunch", b =>
                 {
-                    b.HasOne("project_rocket_launcher.Models.LaunchDetails", "LaunchDetails")
+                    b.HasOne("project_rocket_launcher.Models.LaunchDetails", "details")
                         .WithMany()
-                        .HasForeignKey("LaunchDetailsid");
+                        .HasForeignKey("detailsid");
 
-                    b.Navigation("LaunchDetails");
+                    b.Navigation("details");
                 });
 
             modelBuilder.Entity("project_rocket_launcher.Models.LaunchDetails", b =>

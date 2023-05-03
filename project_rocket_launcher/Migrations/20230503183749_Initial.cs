@@ -5,17 +5,11 @@
 namespace project_rocket_launcher.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialImproved : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "LaunchDetailsid",
-                table: "FavouritesLaunches",
-                type: "TEXT",
-                nullable: true);
-
             migrationBuilder.CreateTable(
                 name: "LaunchStatus",
                 columns: table => new
@@ -61,44 +55,48 @@ namespace project_rocket_launcher.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FavouritesLaunches",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    LaunchId = table.Column<string>(type: "TEXT", nullable: false),
+                    isFavourite = table.Column<bool>(type: "INTEGER", nullable: false),
+                    detailsid = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavouritesLaunches", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FavouritesLaunches_LaunchDetails_detailsid",
+                        column: x => x.detailsid,
+                        principalTable: "LaunchDetails",
+                        principalColumn: "id");
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_FavouritesLaunches_LaunchDetailsid",
+                name: "IX_FavouritesLaunches_detailsid",
                 table: "FavouritesLaunches",
-                column: "LaunchDetailsid");
+                column: "detailsid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_LaunchDetails_statusid",
                 table: "LaunchDetails",
                 column: "statusid");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_FavouritesLaunches_LaunchDetails_LaunchDetailsid",
-                table: "FavouritesLaunches",
-                column: "LaunchDetailsid",
-                principalTable: "LaunchDetails",
-                principalColumn: "id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_FavouritesLaunches_LaunchDetails_LaunchDetailsid",
-                table: "FavouritesLaunches");
+            migrationBuilder.DropTable(
+                name: "FavouritesLaunches");
 
             migrationBuilder.DropTable(
                 name: "LaunchDetails");
 
             migrationBuilder.DropTable(
                 name: "LaunchStatus");
-
-            migrationBuilder.DropIndex(
-                name: "IX_FavouritesLaunches_LaunchDetailsid",
-                table: "FavouritesLaunches");
-
-            migrationBuilder.DropColumn(
-                name: "LaunchDetailsid",
-                table: "FavouritesLaunches");
         }
     }
 }
