@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using project_rocket_launcher.Controllers;
 
 namespace project_rocket_launcher.Models
 {
@@ -36,6 +37,15 @@ namespace project_rocket_launcher.Models
             return JsonConvert.DeserializeObject<LaunchList>(response).results[0];
         }
 
+        static public LaunchDetails RetrieveFromDatabaseById(int id)
+        {
+            // return a LaunchDetails from database
+            using (var database = new DataContext())
+            {
+                return database.FavouritesLaunches.LaunchDetails;
+            }
+        }
+
         static public IList<Launch> convertToLaunch(IList<LaunchDetails> details, IQueryable<FavouriteLaunch> favourites) 
         { 
             IList<Launch> launches = new List<Launch>();
@@ -59,7 +69,14 @@ namespace project_rocket_launcher.Models
             IList<LaunchDetails> favLaunches = new List<LaunchDetails>();
             foreach(var favInfo in favourites)
             {
-                favLaunches.Add(getLaunchById(favInfo.LaunchId));
+                var tempLaunch = getLaunchById(favInfo.LaunchId);
+                if (tempLaunch != null) {
+                    favLaunches.Add(tempLaunch);
+                }
+                else
+                {
+                    favLaunches.Add(RetrieveFromDatabaseById(favInfo.Id));
+                }
             }
             return favLaunches;
         }
