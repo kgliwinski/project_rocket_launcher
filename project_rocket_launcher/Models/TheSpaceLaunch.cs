@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore.Query;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using project_rocket_launcher.Controllers;
@@ -88,11 +89,11 @@ namespace project_rocket_launcher.Models
             {
                 var tempLaunch = getLaunchById(favInfo.LaunchId);
                 if (tempLaunch != null) {
-                    favLaunches.Add(tempLaunch);
-                }
-                else
-                {
-                    
+                    //    favLaunches.Add(tempLaunch);
+                    //}
+                    //else
+                    //{
+                    favLaunches.Add(JsonConvert.DeserializeObject<LaunchDetails>(favInfo.LaunchDetailsJson));
                 }
             }
             return favLaunches;
