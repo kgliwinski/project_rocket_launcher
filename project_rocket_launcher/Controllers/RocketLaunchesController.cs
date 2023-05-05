@@ -19,17 +19,17 @@ namespace project_rocket_launcher.Controllers
         {
 
             ViewBag.Launches = TheSpaceLaunch.convertToLaunch(
-                TheSpaceLaunch.getUpcomingLaunches(), 
+                TheSpaceLaunch.getUpcomingLaunches(),
                 favouriteRepository.GetAllFavourites());
             return View();
         }
 
         public IActionResult LaunchDetails(string? launchID)
         {
-            if (launchID == null) 
+            if (launchID == null)
             {
                 ViewBag.LaunchDetails = null;
-            } 
+            }
             else
             {
                 LaunchDetails launchDetails = TheSpaceLaunch.getUpcomingLaunchById(launchID);
@@ -43,7 +43,7 @@ namespace project_rocket_launcher.Controllers
         {
             LaunchDetails launchDetails = TheSpaceLaunch.getUpcomingLaunchById(launchID);
             string json = JsonConvert.SerializeObject(launchDetails);
-            FavouriteLaunch favourite = new FavouriteLaunch() { LaunchId = launchID, LaunchDetailsJson = json};
+            FavouriteLaunch favourite = new FavouriteLaunch() { LaunchId = launchID, LaunchDetailsJson = json };
             favouriteRepository.Add(favourite);
 
             return RedirectToAction(nameof(RocketLaunches));

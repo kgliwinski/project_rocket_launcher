@@ -10,14 +10,15 @@ namespace project_rocket_launcher.Models
     {
         static private string getFromAPI(string url)
         {
-            using (HttpClient httpClient = new HttpClient()) {
+            using (HttpClient httpClient = new HttpClient())
+            {
                 Uri endpoint = new Uri(url);
                 return httpClient.GetAsync(endpoint).Result.Content.ReadAsStringAsync().Result;
             }
         }
 
 
-        static public IList<LaunchDetails> getUpcomingLaunches(uint number_of_launches = 10) 
+        static public IList<LaunchDetails> getUpcomingLaunches(uint number_of_launches = 10)
         {
 
             string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?limit={number_of_launches}");
@@ -29,7 +30,7 @@ namespace project_rocket_launcher.Models
         static public LaunchDetails getUpcomingLaunchById(string id)
         {
             string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?id={id}");
-            return JsonConvert.DeserializeObject<LaunchList>(response).results[0];    
+            return JsonConvert.DeserializeObject<LaunchList>(response).results[0];
         }
 
         //static public LaunchDetails getUpcomingLaunchById(string id, DataContext dbContext)
@@ -64,20 +65,22 @@ namespace project_rocket_launcher.Models
             return JsonConvert.DeserializeObject<LaunchList>(response).results[0];
         }
 
-        static public IList<Launch> convertToLaunch(IList<LaunchDetails> details, IQueryable<FavouriteLaunch> favourites) 
-        { 
+        static public IList<Launch> convertToLaunch(IList<LaunchDetails> details, IQueryable<FavouriteLaunch> favourites)
+        {
             IList<Launch> launches = new List<Launch>();
-            foreach(var launchDetail in details)
+            foreach (var launchDetail in details)
             {
                 Launch launch = new Launch();
                 launch.details = launchDetail;
-                if (favourites.Any(x => x.LaunchId.Equals(launchDetail.id)) == true) {
+                if (favourites.Any(x => x.LaunchId.Equals(launchDetail.id)) == true)
+                {
                     launch.isFavourite = true;
-                } else
+                }
+                else
                 {
                     launch.isFavourite = false;
                 }
-                launches.Add(launch);    
+                launches.Add(launch);
             }
             return launches;
         }
@@ -85,14 +88,15 @@ namespace project_rocket_launcher.Models
         static public IList<LaunchDetails> getFavouriteLaunches(IQueryable<FavouriteLaunch> favourites)
         {
             IList<LaunchDetails> favLaunches = new List<LaunchDetails>();
-            foreach(var favInfo in favourites)
+            foreach (var favInfo in favourites)
             {
                 var tempLaunch = getLaunchById(favInfo.LaunchId);
-                if (tempLaunch != null) {
-                    //    favLaunches.Add(tempLaunch);
-                    //}
-                    //else
-                    //{
+                if (tempLaunch != null)
+                {
+                    favLaunches.Add(tempLaunch);
+                }
+                else
+                {
                     favLaunches.Add(JsonConvert.DeserializeObject<LaunchDetails>(favInfo.LaunchDetailsJson));
                 }
             }
