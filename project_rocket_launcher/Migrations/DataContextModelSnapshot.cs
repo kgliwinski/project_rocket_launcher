@@ -23,6 +23,10 @@ namespace project_rocket_launcher.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("LaunchDetailsJson")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("LaunchId")
                         .IsRequired()
                         .HasColumnType("TEXT");

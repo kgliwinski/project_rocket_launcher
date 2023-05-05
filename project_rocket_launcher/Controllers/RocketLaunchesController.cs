@@ -41,7 +41,9 @@ namespace project_rocket_launcher.Controllers
 
         public IActionResult AddToFavourite(string launchID)
         {
-            FavouriteLaunch favourite = new FavouriteLaunch() { LaunchId = launchID };
+            LaunchDetails launchDetails = TheSpaceLaunch.getUpcomingLaunchById(launchID);
+            string json = JsonConvert.SerializeObject(launchDetails);
+            FavouriteLaunch favourite = new FavouriteLaunch() { LaunchId = launchID, LaunchDetailsJson = json};
             favouriteRepository.Add(favourite);
 
             return RedirectToAction(nameof(RocketLaunches));

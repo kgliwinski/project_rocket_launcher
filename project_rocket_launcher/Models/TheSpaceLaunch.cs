@@ -31,6 +31,32 @@ namespace project_rocket_launcher.Models
             return JsonConvert.DeserializeObject<LaunchList>(response).results[0];    
         }
 
+        //static public LaunchDetails getUpcomingLaunchById(string id, DataContext dbContext)
+        //{
+        //    // Check if the launch details are already in the database
+        //    FavouriteLaunch existingLaunch = dbContext.FavouritesLaunches.FirstOrDefault(x => x.LaunchId == id);
+        //    if (existingLaunch != null)
+        //    {
+        //        // If the launch details are already in the database, return the stored LaunchDetails
+        //        return JsonConvert.DeserializeObject<LaunchDetails>(existingLaunch.Data);
+        //    }
+        //
+        //    // If the launch details are not in the database, retrieve them from the API
+        //    string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?id={id}");
+        //    LaunchDetails launchDetails = JsonConvert.DeserializeObject<LaunchList>(response).results[0];
+        //
+        //    // Save the launch details to the database
+        //    FavouriteLaunch newLaunch = new FavouriteLaunch
+        //    {
+        //        LaunchId = id,
+        //        Data = JsonConvert.SerializeObject(launchDetails)
+        //    };
+        //    dbContext.FavouritesLaunches.Add(newLaunch);
+        //    dbContext.SaveChanges();
+        //
+        //    return launchDetails;
+        //}
+
         static public LaunchDetails getLaunchById(string id)
         {
             string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/?id={id}");

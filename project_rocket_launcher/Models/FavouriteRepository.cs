@@ -1,4 +1,6 @@
-﻿namespace project_rocket_launcher.Models
+﻿using Newtonsoft.Json;
+
+namespace project_rocket_launcher.Models
 {
     public class FavouriteRepository : IFavouriteRepository
     {
@@ -11,7 +13,8 @@
 
         public FavouriteLaunch Get(int id)
         {
-            return _context.FavouritesLaunches.SingleOrDefault(x => x.Id == id);
+            var launch = _context.FavouritesLaunches.SingleOrDefault(x => x.Id == id);
+            return launch;
         }
 
         public void Add(FavouriteLaunch launch)

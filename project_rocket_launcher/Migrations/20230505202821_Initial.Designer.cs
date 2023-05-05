@@ -11,7 +11,7 @@ using project_rocket_launcher.Models;
 namespace project_rocket_launcher.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230503183749_Initial")]
+    [Migration("20230505202821_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,6 +25,10 @@ namespace project_rocket_launcher.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("LaunchDetailsJson")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LaunchId")
                         .IsRequired()

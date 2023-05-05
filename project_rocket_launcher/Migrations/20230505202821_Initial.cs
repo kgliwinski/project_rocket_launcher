@@ -62,6 +62,7 @@ namespace project_rocket_launcher.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     LaunchId = table.Column<string>(type: "TEXT", nullable: false),
+                    LaunchDetailsJson = table.Column<string>(type: "TEXT", nullable: false),
                     isFavourite = table.Column<bool>(type: "INTEGER", nullable: false),
                     detailsid = table.Column<string>(type: "TEXT", nullable: true)
                 },
