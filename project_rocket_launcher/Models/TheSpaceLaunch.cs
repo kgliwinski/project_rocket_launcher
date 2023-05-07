@@ -6,8 +6,16 @@ using project_rocket_launcher.Controllers;
 
 namespace project_rocket_launcher.Models
 {
+    /// <summary>
+    /// Api handling
+    /// </summary>
     public class TheSpaceLaunch
     {
+        /// <summary>
+        /// Get data from api
+        /// </summary>
+        /// <param name="url">specific url address</param>
+        /// <returns>Api result</returns>
         static private string getFromAPI(string url)
         {
             using (HttpClient httpClient = new HttpClient())
@@ -17,7 +25,11 @@ namespace project_rocket_launcher.Models
             }
         }
 
-
+        /// <summary>
+        /// Get upcoming launches from API
+        /// </summary>
+        /// <param name="number_of_launches">Number of launches to read</param>
+        /// <returns>List of launches</returns>
         static public IList<LaunchDetails> getUpcomingLaunches(uint number_of_launches = 10)
         {
 
@@ -27,6 +39,11 @@ namespace project_rocket_launcher.Models
             return launchList.results;
         }
 
+        /// <summary>
+        /// Get specific upcoming launch
+        /// </summary>
+        /// <param name="id">Launch id</param>
+        /// <returns>Launch details</returns>
         static public LaunchDetails getUpcomingLaunchById(string id)
         {
             string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?id={id}");
@@ -59,12 +76,24 @@ namespace project_rocket_launcher.Models
         //    return launchDetails;
         //}
 
+        /// <summary>
+        /// Get specific launch details
+        /// </summary>
+        /// <param name="id">launch id</param>
+        /// <returns></returns>
         static public LaunchDetails getLaunchById(string id)
         {
             string response = getFromAPI($"https://lldev.thespacedevs.com/2.2.0/launch/?id={id}");
             return JsonConvert.DeserializeObject<LaunchList>(response).results[0];
         }
 
+        /// <summary>
+        /// Convert launch details to rocket launch class, 
+        /// This method chceck if launch is in the favorutie launch list
+        /// </summary>
+        /// <param name="details">Launches details</param>
+        /// <param name="favourites">Favourite launches</param>
+        /// <returns></returns>
         static public IList<Launch> convertToLaunch(IList<LaunchDetails> details, IQueryable<FavouriteLaunch> favourites)
         {
             IList<Launch> launches = new List<Launch>();
@@ -85,6 +114,11 @@ namespace project_rocket_launcher.Models
             return launches;
         }
 
+        /// <summary>
+        /// Get favourite launches from API
+        /// </summary>
+        /// <param name="favourites">Favourite launches</param>
+        /// <returns>List of favourite launches details</returns>
         static public IList<LaunchDetails> getFavouriteLaunches(IQueryable<FavouriteLaunch> favourites)
         {
             IList<LaunchDetails> favLaunches = new List<LaunchDetails>();

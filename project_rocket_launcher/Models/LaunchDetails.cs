@@ -1,6 +1,10 @@
 ﻿
 namespace project_rocket_launcher.Models
 {
+    /// <summary>
+    /// Launch details based on API schema
+    /// https://ll.thespacedevs.com/2.2.0/swagger/#/config/config_eventtype_list
+    /// </summary>
     public class LaunchDetails
     {
         public string id { get; set; }

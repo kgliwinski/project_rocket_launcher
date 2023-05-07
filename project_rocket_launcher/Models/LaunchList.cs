@@ -1,5 +1,8 @@
 ﻿namespace project_rocket_launcher.Models
 {
+    /// <summary>
+    /// Launch list API schema
+    /// </summary>
     public class LaunchList
     {
         public int count { get; set; }
