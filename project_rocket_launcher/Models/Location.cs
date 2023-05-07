@@ -1,5 +1,9 @@
 ﻿namespace project_rocket_launcher.Models
 {
+    /// <summary>
+    /// Launch location API schema 
+    /// https://ll.thespacedevs.com/2.2.0/swagger/#/config/config_eventtype_list
+    /// </summary>
     public class Location
     {
         public int id { get; set; }

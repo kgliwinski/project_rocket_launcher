@@ -4,35 +4,55 @@ using project_rocket_launcher.Models;
 
 namespace project_rocket_launcher.Controllers
 {
+    /// <summary>
+    /// Favourite launches controller
+    /// </summary>
     public class FavouritesController : Controller
     {
         private readonly IFavouriteRepository favouriteRepository;
-
+        /// <summary>
+        ///  Favourite Launches Controller Constructor
+        /// </summary>
+        /// <param name="_favouriteRepository"> Favourite Repository interface </param>
         public FavouritesController(IFavouriteRepository _favouriteRepository)
         {
             favouriteRepository = _favouriteRepository;
         }
 
-        // GET: FavouritesController
+        /// <summary>
+        /// Get favourite launches and change view to Favourites/Index
+        /// </summary>
+        /// <returns> Favourite Launches view </returns>
         public ActionResult Index()
         {
             ViewBag.Launches = TheSpaceLaunch.getFavouriteLaunches(favouriteRepository.GetAllFavourites());
             return View();
         }
 
-        // GET: FavouritesController/Details/5
+        /// <summary>
+        /// Get detail information abourt favoruite launch
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Favourite launch detail view</returns>
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: FavouritesController/Create
+        /// <summary>
+        /// Create favourite launch
+        /// </summary>
+        /// <returns> Favourite launch view</returns>
         public ActionResult Create()
         {
             return View(new FavouriteLaunch());
         }
 
-        // POST: FavouritesController/Create
+        /// <summary>
+        /// Create favourite launch from loaded list 
+        /// </summary>
+        /// <param name="launch">Launch details</param>
+        /// <returns> Current view </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(FavouriteLaunch launch)
@@ -41,13 +61,16 @@ namespace project_rocket_launcher.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: FavouritesController/Edit/5
+        /// <summary>
+        /// Edit favourite launch
+        /// </summary>
+        /// <param name="id"> Launch id</param>
+        /// <returns>Favourite launch view</returns>
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: FavouritesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -62,13 +85,22 @@ namespace project_rocket_launcher.Controllers
             }
         }
 
-        // GET: FavouritesController/Delete/5
+        /// <summary>
+        /// Delete favorurite launch
+        /// </summary>
+        /// <param name="id">Launch id</param>
+        /// <returns>Favourite launch view</returns>
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: FavouritesController/Delete/5
+        /// <summary>
+        ///  Delete favourite launch
+        /// </summary>
+        /// <param name="id">Launch id</param>
+        /// <param name="collection">Launch collection</param>
+        /// <returns>Favourite launch view</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
