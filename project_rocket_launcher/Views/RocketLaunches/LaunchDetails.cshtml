@@ -4,27 +4,42 @@
     ViewBag.Title = "LaunchDetail";
 }
 
-@{
-    <div class="myDiv">
-        <form method="post">
-        <button asp-area="" asp-controller="RocketLaunches" asp-action="RocketLaunches">
-            Go back to launches
-        </button>
-        </form>
-    </div>
-    
-    if (ViewBag.LaunchDetails == null)
-    {
-        <h2 color="red">ERROR</h2>
-    } else
-    {
-        <div class="myDiv">
-            <h4>@ViewBag.LaunchDetails.name</h4>
-            <h8>@ViewBag.LaunchDetails.window_start</h8>
-            <br>
-            <h8>@ViewBag.LaunchDetails.status.description</h8>
-            <br>
-            <img src="@ViewBag.LaunchDetails.image" width="500" height="500">
-        </div>
+<script>
+    window.addEventListener("load", () => {
+        countdown("@ViewBag.LaunchDetails.window_start", "cdwn_timer");
+    });
+</script>
+
+<div class="launch_details_container">
+    @{
+        if (ViewBag.LaunchDetails == null)
+        {
+            <h2 color="red">ERROR</h2>
+        } else
+        {
+            <div class="launch_details_name">
+                @ViewBag.LaunchDetails.name
+            </div>
+            <div class="launch_details_img">
+                <img src="@ViewBag.LaunchDetails.image" width="500" height="500">
+            </div>
+
+            <div class="launch_details">
+                
+                <div class="launch_details_desc">
+                    <span>Launch start</span>
+                    <div class="launch_start" id="cdwn_timer">
+                        T- -:--:--:--
+                    </div>
+                </div>
+                <div class="launch_details_desc">
+                    <span>Launch status</span>
+                    <div class="launch_status">
+                        @ViewBag.LaunchDetails.status.description
+                    </div>
+                </div>
+            </div>
+        }
     }
-}
+
+    </div>
